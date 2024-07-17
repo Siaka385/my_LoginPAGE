@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            form {
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: #f2f2f2;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+label {
+  display: inline-block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input[type="text"], input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+input[type="submit"] {
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+input[type="submit"]:hover {
+  background-color: #3e8e41;
+}
+        </style>
+        <title>LOGIN</title>
+    </head>
+        <body>
+            <form >
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username"><br><br>
+                
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password"><br><br>
+              
+                <button type="submit" value="Login" hx-post="/login" hx-swap="innerHTML" hx-target="#result"></button>
+                
+
+              </form>
+        </body>
+        <div id="result">
+          {{.RESULT}}
+        </div>
+    
+</html>
