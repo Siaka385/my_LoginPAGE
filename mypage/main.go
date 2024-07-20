@@ -25,8 +25,10 @@ func router(w http.ResponseWriter, r *http.Request) {
 		SignUphandler(w)
 	} else if r.URL.Path == "/reg" {
 		asfuncss.Reg(w, r)
-	} else if r.URL.Path == "/login" {
+	} else if r.URL.Path == "/log" {
 		Loginpageload(w, r)
+	} else if r.URL.Path == "/login" {
+		asfuncss.Login(w, r)
 	}
 }
 
