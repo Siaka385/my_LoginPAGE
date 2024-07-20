@@ -1,9 +1,9 @@
 package asfuncss
 
 import (
-	"fmt"
 	"net/http"
 	"os"
+	"strings"
 )
 
 func Reg(w http.ResponseWriter, r *http.Request) {
@@ -12,13 +12,16 @@ func Reg(w http.ResponseWriter, r *http.Request) {
 	username := r.Form.Get("username")
 	password := r.Form.Get("password")
 	confirm := r.Form.Get("confirmpassword")
-	fmt.Println(name)
+
 	if CheckUsernameExist(username, w) {
 		w.Write([]byte("Username already exist"))
 	} else {
 		if password != confirm {
 			w.Write([]byte("password should be same with confirm password"))
+		} else if strings.Contains(username, " ") {
+			w.Write([]byte("Your username should not have space it"))
 		} else {
+			name := strings.ReplaceAll(name, " ", "+")
 			SaveDetails([]string{name, username, password}, w)
 			w.Write([]byte("YOU HAVE SUCCESSFUL SIGN UP"))
 		}
@@ -35,7 +38,7 @@ func SaveDetails(mydata []string, w http.ResponseWriter) {
 	defer file.Close()
 	name := "Full name:" + mydata[0] + ", "
 	username := "username:" + mydata[1] + ", "
-	password := "password:" + mydata[1]
+	password := "password:" + mydata[2]
 	content, _ := os.ReadFile(databasename)
 	if len(string(content)) == 0 || string(content) == "" {
 		file.WriteString(name + username + password)
