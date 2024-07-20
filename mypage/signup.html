@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>signup</title>
-    <script src="https://unpkg.com/htmx.org@2.0.0"></script>
+    <script defer src="https://unpkg.com/htmx.org@1.7.0"></script>
 <link rel="stylesheet" href="static/css/stylesignup.css">
 <style>
 
@@ -60,7 +60,7 @@ button:hover{
    
 </head>
 <body>
-    <form hx-post="/reg" hx-target="#display" hx-swap="innerHTML" >
+    <form hx-get="/reg" hx-target="#display" hx-swap="innerHTML" >
       <label for="fullname">Full name</label>
       <input type="text" id="fullname" name="fullname" required><br>
         <label for="username">Username</label>
@@ -71,7 +71,7 @@ button:hover{
         <input type="password" id="confirmpassword" name="confirmpassword" required>
         <br>
     
-        <button type="submit" value="submit">sign in</button>
+        <button value="submit">sign in</button>
         
     </form>
    
