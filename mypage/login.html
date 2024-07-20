@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
+      <title>LOGIN</title>
+      <script defer src="https://unpkg.com/htmx.org@1.7.0"></script>
         <style>
             form {
   max-width: 500px;
@@ -38,18 +40,32 @@ input[type="submit"] {
 input[type="submit"]:hover {
   background-color: #3e8e41;
 }
+
+button{
+  background-color: #4CAF50;
+  height: 40px;
+  width: 80px;
+  border-radius: 10px;
+  color: white;
+  font-size: 20px;
+  border: none;
+}
+button:hover{
+  background-color:darkgreen;
+  cursor: pointer;
+}
         </style>
-        <title>LOGIN</title>
+        
     </head>
         <body>
-            <form >
+            <form hx-get="/login" hx-swap="innerHTML" hx-target="#result"</form>
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username"><br><br>
                 
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password"><br><br>
               
-                <button type="submit" value="Login" hx-post="/login" hx-swap="innerHTML" hx-target="#result"></button>
+                <button type="submit" value="Login">LOGIN</button>
                 
 
               </form>
