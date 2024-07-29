@@ -1,0 +1,18 @@
+[
+  {
+    "role": "",
+    "id": 0,
+    "username": "OGOL",
+    "password": "$2a$10$2wLtT4EeJdJJXpbOcN.Ys.dUjEGZo6nCHBM/.Sx8QKbg2lSuiv/0q",
+    "confpassword": "$2a$10$2wLtT4EeJdJJXpbOcN.Ys.dUjEGZo6nCHBM/.Sx8QKbg2lSuiv/0q",
+    "email": ""
+  },
+  {
+    "role": "",
+    "id": 0,
+    "username": "OGOLA",
+    "password": "$2a$10$gE1nuiZOTpNL60N4UhmkDORdwiblom8BB4cF6y/daVPZCZDI4nx/a",
+    "confpassword": "$2a$10$gE1nuiZOTpNL60N4UhmkDORdwiblom8BB4cF6y/daVPZCZDI4nx/a",
+    "email": ""
+  }
+]

@@ -1,41 +1,54 @@
 package asfuncss
 
 import (
+	"encoding/json"
+	"fmt"
 	"net/http"
 	"os"
-	"strings"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
-func Login(username string, w http.ResponseWriter, r *http.Request) {
-	file, err := os.Open("mydatabasefile.txt")
+func Login(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	// Open the JSON file containing user data
+	file, err := os.Open("users.json")
 	if err != nil {
 		http.Error(w, "INTERNAL SERVER ERROR", http.StatusInternalServerError)
-
+		return
 	}
 	defer file.Close()
 
-	content, err := os.ReadFile("mydatabasefile.txt")
+	// Read and unmarshal the JSON content
+	var users []User
+	err = json.NewDecoder(file).Decode(&users)
 	if err != nil {
 		http.Error(w, "INTERNAL SERVER ERROR", http.StatusInternalServerError)
+		return
 	}
-	if len(string(content)) == 0 || string(content) == "" {
-		w.Write([]byte("WRONG PASSWORD OR USERNAME"))
-	} else {
-		myslice := strings.Split(string(content), "\n")
-		for i := 0; i < len(myslice); i++ {
-			myusernameslice := strings.Split(myslice[i], " ")
-			if myusernameslice[2] == "username:"+username+"," {
-				if CheckPassword(r, myusernameslice[3]) {
-					w.Write([]byte("SUCCESSFULLY LOG IN"))
-				} else {
-					w.Write([]byte("WRONG PASSWORD OR USERNAME"))
-				}
+	username := r.Form.Get("loginusername")
+	// Check if the username exists and the password matches
+	for _, user := range users {
+		if user.Username == username {
+			if CheckPassword(r, user.Password) {
+				w.Write([]byte("SUCCESSFULLY LOGGED IN"))
+				fmt.Println("you are in")
+			} else {
+				w.Write([]byte("WRONG PASSWORD OR USERNAME"))
+				fmt.Println(user.Password)
+				fmt.Println(r.Form.Get("loginpassword"))
 			}
-
+			return
 		}
 	}
+
+	// If the username was not found
+	w.Write([]byte("WRONG PASSWORD OR USERNAME"))
 }
 
-func CheckPassword(r *http.Request, password string) bool {
-	return "password:"+r.Form.Get("password") == password
+func CheckPassword(r *http.Request, storedPassword string) bool {
+	//compare the hashed password
+	providedPassword := r.Form.Get("loginpassword")
+	err := bcrypt.CompareHashAndPassword([]byte(storedPassword), []byte(providedPassword))
+	return err == nil
 }

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+      <script src="https://unpkg.com/htmx.org@2.0.0"></script>
         <style>
             form {
   max-width: 500px;
@@ -42,16 +43,15 @@ input[type="submit"]:hover {
         <title>LOGIN</title>
     </head>
         <body>
-            <form >
+            <form  value="Login" hx-post="/login" hx-swap="innerHTML" hx-target="#result">
                 <label for="username">Username:</label>
-                <input type="text" id="username" name="username"><br><br>
+                <input type="text" id="loginusername" name="loginusername"><br><br>
                 
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password"><br><br>
+                <input type="password" id="loginpassword" name="loginpassword"><br><br>
               
-                <button type="submit" value="Login" hx-post="/login" hx-swap="innerHTML" hx-target="#result"></button>
+                <button type="submit"></button>
                 
-
               </form>
         </body>
         <div id="result">
